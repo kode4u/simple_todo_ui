@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todo/controllers/todo_controller.dart';
+import 'package:todo/model/todo_item_model.dart';
 
 class AddTask extends StatefulWidget {
   @override
@@ -91,7 +94,16 @@ class _AddTaskState extends State<AddTask> {
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16))),
-              onPressed: () {},
+              onPressed: () {
+                TodoController todoController = Get.find<TodoController>();
+                todoController.addTask(ToDoItemModel(
+                    title: _textController.text,
+                    date: _dateController.text,
+                    priority: selectedValue,
+                    isDone: false));
+                print(todoController.todos.length);
+                Navigator.pop(context);
+              },
               child: Container(
                 padding: EdgeInsets.all(16),
                 child: Text(
